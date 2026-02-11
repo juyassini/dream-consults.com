@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dream Consults - Empowering Malawian Businesses</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Optional: Google Fonts for better typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header id="top">
+        <h1>Dream Consults</h1>
+        <p>Local insights • Practical solutions • Sustainable growth</p>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="services.html">Services</a>
+            <a href="#team">Team</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+
+        <!-- Hero / Intro -->
+        <section style="padding: 4rem 1rem; background: #e8f5e9;">
+            <div style="display: flex; align-items: center; justify-content: center; gap: 3rem; max-width: 1000px; margin: 0 auto; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 300px; text-align: center;">
+                    <h2>Welcome to Dream Consults</h2>
+                    <p style="font-size: 1.15rem; margin: 1.5rem 0;">
+                        We provide evidence-based advisory services to SMEs and agribusinesses in Malawi.<br>
+                        Specializing in supply chain optimization, agricultural marketing, and profit scaling.
+                    </p>
+                    <a href="#services" style="display: inline-block; background: #4caf50; color: white; padding: 0.9rem 1.8rem; border-radius: 30px; text-decoration: none; font-weight: 500; margin-top: 1rem;">Explore Our Services</a>
+                </div>
+                <div style="flex: 1; min-width: 250px; text-align: center;">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=500&h=400&fit=crop" alt="Office team welcoming clients" class="hero-image">
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services">
+            <h2>Our Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>Supply Chain Solutions</h3>
+                    <p>Cost and process analysis to improve operational efficiency and reduce waste in your value chain.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Agriculture Marketing Strategies</h3>
+                    <p>Market access, pricing strategies, value chain positioning, and buyer linkages for better returns.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Profit Scaling Advisory</h3>
+                    <p>Cost minimization, revenue growth planning, and data-driven strategies to scale your business sustainably.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+<section id="team">
+    <h2>Our Team</h2>
+    <div class="team-grid">
+        <div class="team-member">
+            <div class="member-header">
+                <h3>Juma Yassin</h3>
+                <div class="role">Founder & Lead Consultant</div>
+            </div>
+            <p>Third-year BSc Development Economics student at LUANAR, focused on agricultural markets and economic development. Director of Publications and Information, LUANAR Student Union (2025–2026). Founder of Dream-Future Photography and Co-Founder of Dream Farms.</p>
+        </div>
+
+        <div class="team-member">
+            <div class="member-header">
+                <h3>Lusubilo Chavula</h3>
+                <div class="role">Agriculture & Community Engagement Specialist</div>
+            </div>
+            <p>Third-year Bachelor's student in Education Science (major in Agriculture) at LUANAR. General Secretary of the LUANAR City Campus Student Union Council. Volunteer with Rising Hope Network supporting marginalized communities.</p>
+        </div>
+
+        <div class="team-member">
+            <div class="member-header">
+                <h3>Arthur Alexuse Phiri</h3>
+                <div class="role">Supply Chain & Agricultural Marketing Specialist</div>
+            </div>
+            <p>Third-year BSc Development Economics student at LUANAR. Current Religious Director, LUANAR Student Union. Skilled in supply chain management, agricultural marketing, copywriting, and transcribing.</p>
+        </div>
+
+        <div class="team-member">
+            <div class="member-header">
+                <h3>Wills Masanja</h3>
+                <div class="role">Data Analysis & Insights Specialist</div>
+            </div>
+            <p>Third-year BSc Development Economics student at LUANAR. Proficient in data analysis using Excel, Google Sheets, and Stata — delivering evidence-based insights, financial modeling, and performance tracking for SMEs and agribusiness clients.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact">
+    <h2>Get In Touch</h2>
+    <div class="contact-container">
+        <div class="contact-image-wrapper">
+            <img src="https://images.pexels.com/photos/3183132/pexels-photo-3183132.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Team meeting and consultation" class="contact-image">
+        </div>
+        <div class="contact-mini">
+            <div class="contact-info-mini">
+                <p><strong>Phone:</strong> +265 (0) 993 550 860</p>
+                <p><strong>Email:</strong> juyassini@gmail.com</p>
+                <p><strong>Location:</strong> Lilongwe, Malawi</p>
+            </div>
+            <form class="contact-form-mini" id="contactForm">
+                <div class="form-group">
+                    <input type="text" id="name" name="name" placeholder="Name *" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="email" name="email" placeholder="Email *" required>
+                </div>
+                <div class="form-group">
+                    <select id="service" name="service" required>
+                        <option value="">Service of Interest *</option>
+                        <option value="supply-chain">Supply Chain Solutions</option>
+                        <option value="agriculture-marketing">Agriculture Marketing Strategies</option>
+                        <option value="profit-scaling">Profit Scaling Advisory</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <textarea id="message" name="message" placeholder="Message *" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send</button>
+                <p class="form-feedback" id="formFeedback"></p>
+            </form>
+        </div>
+    </div>
+</section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-columns">
+            <div class="footer-column">
+                <h4>What We Do</h4>
+                <ul>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="index.html">About</a></li>
+                    <li><a href="index.html#team">Our Team</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Who We Are</h4>
+                <ul>
+                    <li><a href="index.html#contact">Contact Us</a></li>
+                    <li><a href="index.html">Blog</a></li>
+                    <li><a href="index.html">Careers</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Get Support</h4>
+                <ul>
+                    <li><a href="https://wa.me/265993550860" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
+                    <li><a href="mailto:juyassini@gmail.com">Email Support</a></li>
+                    <li><a href="index.html">Help Center</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Follow Us</h4>
+                <div class="footer-socials">
+                    <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">Facebook</a>
+                    <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">Instagram</a>
+                    <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LinkedIn</a>
+                    <a href="https://x.com/" target="_blank" rel="noopener noreferrer" aria-label="Twitter">Twitter</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Dream Consults • Lilongwe, Malawi • Tel: +265 (0) 993 550 860</p>
+            <div class="footer-legal">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Sitemap</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

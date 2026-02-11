@@ -1,0 +1,71 @@
+====================================
+Dream Consults - Quick Start Guide
+====================================
+
+📌 You now have two backends working together:
+  • PHP: Local form handler (http://localhost:8000)
+  • Flask: Alternative API (http://localhost:5000)
+
+🚀 GETTING STARTED (Windows)
+
+Step 1: Start PHP Server
+-----------
+1. Open Command Prompt (cmd) or PowerShell
+2. Navigate to your project folder:
+   cd C:\Users\WANANGWA\Desktop\ww\01
+3. Run:
+   php -S localhost:8000
+
+✅ PHP should start on http://localhost:8000
+
+Step 2: Open Your Website (in a new terminal)
+-----------
+Just visit: http://localhost:8000
+
+Step 3: Test the Contact Form
+-----------
+1. Fill in the contact form on the website
+2. Submit it
+3. Check http://localhost:8000/admin/submissions.php
+4. Login with password: dream2026
+5. You should see your submission in the database
+
+🔒 SECURITY - Change Admin Password
+-----------
+For production, you MUST change the admin password:
+
+1. Open Command Prompt
+2. Run this to generate a secure hash:
+   php -r "echo password_hash('your-new-password', PASSWORD_DEFAULT);"
+3. Copy the long hash that appears
+4. Open .env file and paste it:
+   ADMIN_PASSWORD_HASH=<paste-hash-here>
+5. Restart PHP server
+
+📦 OPTIONAL: Start Flask Backend
+-----------
+If you want both backends running (redundancy):
+
+1. Open a NEW terminal
+2. Navigate to project folder
+3. Run: python app.py
+4. Flask will run on http://localhost:5000
+
+Note: Your website uses PHP by default. Flask is optional.
+
+❓ TROUBLESHOOTING
+-----------
+Port 8000 already in use?
+  → Use: php -S localhost:8001
+
+Port 5000 already in use? (Flask)
+  → Use: python app.py --port 5001
+
+Need help?
+  → Check BACKEND_SETUP.md for detailed information
+  → Check php_errors.log for PHP errors
+  → Check Flask console output for Python errors
+
+========================================
+First time setup complete! Happy coding! 🎉
+========================================

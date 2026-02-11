@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Dream Consults</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Enhanced interactive animations */
+        @keyframes popIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInWords {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            }
+            50% {
+                box-shadow: 0 8px 30px rgba(46, 125, 50, 0.3);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        /* Interactive card styles */
+        .interactive-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .interactive-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+            pointer-events: none;
+        }
+
+        .interactive-card:hover::before {
+            left: 100%;
+        }
+
+        .interactive-card.animate-in {
+            animation: popIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        .mission-vision-cards {
+            position: relative;
+        }
+
+        .mission-vision-cards > div {
+            position: relative;
+        }
+
+        .mission-vision-cards > div:first-child {
+            animation: slideInLeft 0.7s ease-out forwards;
+        }
+
+        .mission-vision-cards > div:last-child {
+            animation: slideInRight 0.7s ease-out forwards;
+            animation-delay: 0.2s;
+        }
+
+        /* Enhanced hover effects */
+        .value-card {
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .value-card:hover {
+            transform: translateY(-12px) scale(1.05);
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        .value-card::after {
+            content: '→';
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 1.5rem;
+            color: #4caf50;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .value-card:hover::after {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Modal popup styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            max-width: 600px;
+            width: 90%;
+            animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .close-btn {
+            float: right;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #aaa;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .close-btn:hover {
+            color: #000;
+        }
+
+        /* Expandable section styles */
+        .expandable-section {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .expandable-section .toggle-icon {
+            display: inline-block;
+            transition: transform 0.3s ease;
+            margin-left: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .expandable-section.expanded .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .expandable-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .expandable-content.show {
+            max-height: 500px;
+            animation: slideInDown 0.4s ease;
+        }
+
+        /* Text reveal animation */
+        .reveal-text {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .reveal-text.visible {
+            animation: fadeInWords 0.6s ease forwards;
+        }
+
+        /* Counter animation */
+        .counter {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #2e7d32;
+        }
+
+        .btn-more-info {
+            background: #4caf50;
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-more-info:hover {
+            background: #2e7d32;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(46, 125, 50, 0.3);
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes typingEffect {
+            from { 
+                width: 0;
+                opacity: 1;
+            }
+            to { 
+                width: 100%;
+                opacity: 1;
+            }
+        }
+
+        .story-text {
+            animation: fadeInWords 1s ease-out forwards;
+            opacity: 0;
+        }
+
+        .story-text:nth-child(1) { animation-delay: 0.1s; }
+        .story-text:nth-child(2) { animation-delay: 0.3s; }
+        .story-text:nth-child(3) { animation-delay: 0.5s; }
+    </style>
+</head>
+<body>
+
+    <header id="top">
+        <h1>Dream Consults</h1>
+        <p>Local insights • Practical solutions • Sustainable growth</p>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="services.html">Services</a>
+            <a href="index.html#team">Team</a>
+            <a href="index.html#contact">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+
+        <!-- Hero Section -->
+        <section style="text-align: center; padding: 4rem 1rem; background: #e8f5e9;">
+            <h2>About Dream Consults</h2>
+            <div style="background: #1e3a8a; max-width: 700px; margin: 1.5rem auto; font-size: 1.15rem; padding: 1.5rem; border-radius: 5px; color: #ffffff;">
+                Built on passion for economic empowerment, evidence-based research, and practical solutions for Malawian businesses.
+            </div>
+        </section>
+
+        <!-- Our Story -->
+        <section style="max-width: 900px; margin: 3rem auto; padding: 0 1rem;">
+            <h2 style="text-align: center; color: #2e7d32; margin-bottom: 2rem;">Our Story</h2>
+            <div style="background: #1e3a8a; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); line-height: 1.8; color: #ffffff; transition: all 0.3s ease;" onmouseover="this.style.background='#163875'; this.style.boxShadow='0 8px 20px rgba(100, 150, 220, 0.2)'" onmouseout="this.style.background='#1e3a8a'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)'">
+                <p>Dream Consults emerged from a shared vision among development economics and agricultural students at the Lilongwe University of Agriculture and Natural Resources (LUANAR). We recognized a critical gap in affordable, evidence-based advisory services for SMEs and agribusinesses in Malawi.</p>
+                
+                <p style="margin-top: 1.5rem;">Rather than viewing Malawian businesses as isolated entities, we understand them as part of complex, interconnected value chains. Our approach combines research-backed insights with practical street wisdom to deliver actionable recommendations.</p>
+                
+                <p style="margin-top: 1.5rem;">We believe sustainable economic growth comes from optimizing what businesses already do, not from chasing external solutions. Every recommendation we make is grounded in data analysis, market research, and deep understanding of the local context.</p>
+            </div>
+        </section>
+
+        <!-- Mission & Vision -->
+        <section style="max-width: 1100px; margin: 3rem auto; padding: 0 1rem;">
+            <h2 style="text-align: center; color: #2e7d32; margin-bottom: 2rem;">Our Mission & Vision</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;" class="mission-vision-cards">
+                <div class="interactive-card" style="background: #1e3a8a; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: all 0.3s ease; cursor: pointer;" onmouseover="this.style.background='#163875'; this.style.boxShadow='0 8px 20px rgba(100, 150, 220, 0.2)'" onmouseout="this.style.background='#1e3a8a'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)'" onclick="openModal('missionModal')">
+                    <h3 style="color: #ffffff; margin-bottom: 1rem;">🎯 Mission</h3>
+                    <p style="color: #ffffff; line-height: 1.7;">To empower Malawian SMEs and agribusinesses with evidence-based advisory services that optimize operations, unlock market opportunities, and drive sustainable profitable growth through practical, locally-adapted solutions.</p>
+                    <button class="btn-more-info">Learn More →</button>
+                </div>
+                <div class="interactive-card" style="background: #1e3a8a; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: all 0.3s ease; cursor: pointer;" onmouseover="this.style.background='#163875'; this.style.boxShadow='0 8px 20px rgba(100, 150, 220, 0.2)'" onmouseout="this.style.background='#1e3a8a'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)'" onclick="openModal('visionModal')">
+                    <h3 style="color: #ffffff; margin-bottom: 1rem;">✨ Vision</h3>
+                    <p style="color: #ffffff; line-height: 1.7;">A Malawi where every business owner has access to affordable, high-quality advisory services that enable them to compete confidently, scale sustainably, and contribute meaningfully to economic development.</p>
+                    <button class="btn-more-info">Learn More →</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Core Values -->
+        <section style="max-width: 1000px; margin: 3rem auto; padding: 0 1rem;">
+            <h2 style="text-align: center; color: #2e7d32; margin-bottom: 2rem;">Our Core Values</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+                <div class="value-card" style="background: #1e3a8a; padding: 1.5rem; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); text-align: center; transition: all 0.3s ease;" onmouseover="this.style.background='#163875'; this.style.boxShadow='0 8px 20px rgba(100, 150, 220, 0.2)'; this.style.transform='translateY(-4px)'" onmouseout="this.style.background='#1e3a8a'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)'; this.style.transform='translateY(0)'">
+                    <h4 style="color: #ffffff; margin-bottom: 0.8rem; font-size: 1.1rem;">🔍 Evidence-Based</h4>
+                    <p style="color: #ffffff; font-size: 0.95rem;">We don't make recommendations based on assumptions. Data analysis, market research, and proven methodologies guide everything we do.</p>
+                </div>
+                <div class="value-card" style="background: #1e3a8a; padding: 1.5rem; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); text-align: center; transition: all 0.3s ease;" onmouseover="this.style.background='#163875'; this.style.boxShadow='0 8px 20px rgba(100, 150, 220, 0.2)'; this.style.transform='translateY(-4px)'" onmouseout="this.style.background='#1e3a8a'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)'; this.style.transform='translateY(0)'">
+                    <h4 style="color: #ffffff; margin-bottom: 0.8rem; font-size: 1.1rem;">⚙️ Practical</h4>
+                    <p style="color: #ffffff; font-size: 0.95rem;">We bridge the gap between academic theory and business reality. Our solutions are actionable, realistic, and implementable within existing constraints.</p>
+                </div>
+                <div class="value-card" style="background: #1e3a8a; padding: 1.5rem; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); text-align: center; transition: all 0.3s ease;" onmouseover="this.style.background='#163875'; this.style.boxShadow='0 8px 20px rgba(100, 150, 220, 0.2)'; this.style.transform='translateY(-4px)'" onmouseout="this.style.background='#1e3a8a'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)'; this.style.transform='translateY(0)'">
+                    <h4 style="color: #ffffff; margin-bottom: 0.8rem; font-size: 1.1rem;">🌍 Local Focus</h4>
+                    <p style="color: #ffffff; font-size: 0.95rem;">We understand Malawian markets, challenges, and opportunities. Our expertise is rooted in local context, not imported models.</p>
+                </div>
+                <div class="value-card" style="background: #1e3a8a; padding: 1.5rem; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); text-align: center; transition: all 0.3s ease;" onmouseover="this.style.background='#163875'; this.style.boxShadow='0 8px 20px rgba(100, 150, 220, 0.2)'; this.style.transform='translateY(-4px)'" onmouseout="this.style.background='#1e3a8a'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)'; this.style.transform='translateY(0)'">
+                    <h4 style="color: #ffffff; margin-bottom: 0.8rem; font-size: 1.1rem;">🤝 Collaborative</h4>
+                    <p style="color: #ffffff; font-size: 0.95rem;">We work with you, not for you. Success comes through open communication, shared learning, and genuine partnership throughout the engagement.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Choose Us -->
+        <section style="max-width: 1200px; margin: 3rem auto; padding: 2rem 1rem; background: #e8f5e9; border-radius: 10px;">
+            <h2 style="text-align: center; color: #2e7d32; margin-bottom: 2rem;">Why Choose Dream Consults?</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center;">
+                <div>
+                    <img src="https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=500" alt="Team working on business consultation" style="width: 85%; height: auto; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.1); transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 12px 35px rgba(46, 125, 50, 0.25)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.1)'">
+                </div>
+                <ul style="list-style: none; padding: 0; color: #555;">
+                    <li style="margin-bottom: 1.2rem; padding-left: 2rem; position: relative;">
+                        <span style="position: absolute; left: 0; color: #4caf50; font-weight: bold; font-size: 1.2rem;">✓</span>
+                        <strong>Affordability</strong> - Competitive rates designed for SMEs and growing businesses
+                    </li>
+                    <li style="margin-bottom: 1.2rem; padding-left: 2rem; position: relative;">
+                        <span style="position: absolute; left: 0; color: #4caf50; font-weight: bold; font-size: 1.2rem;">✓</span>
+                        <strong>Expertise</strong> - Team of development economics and agriculture specialists
+                    </li>
+                    <li style="margin-bottom: 1.2rem; padding-left: 2rem; position: relative;">
+                        <span style="position: absolute; left: 0; color: #4caf50; font-weight: bold; font-size: 1.2rem;">✓</span>
+                        <strong>Responsiveness</strong> - Quick turnaround on analysis and actionable recommendations
+                    </li>
+                    <li style="margin-bottom: 1.2rem; padding-left: 2rem; position: relative;">
+                        <span style="position: absolute; left: 0; color: #4caf50; font-weight: bold; font-size: 1.2rem;">✓</span>
+                        <strong>Local Understanding</strong> - Deep knowledge of Malawi's business environment
+                    </li>
+                    <li style="margin-bottom: 1.2rem; padding-left: 2rem; position: relative;">
+                        <span style="position: absolute; left: 0; color: #4caf50; font-weight: bold; font-size: 1.2rem;">✓</span>
+                        <strong>Continuous Support</strong> - We stay engaged to ensure recommendations are implemented effectively
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-columns">
+            <div class="footer-column">
+                <h4>What We Do</h4>
+                <ul>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="index.html#team">Our Team</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Who We Are</h4>
+                <ul>
+                    <li><a href="index.html#contact">Contact Us</a></li>
+                    <li><a href="index.html">Company</a></li>
+                    <li><a href="index.html">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Get Support</h4>
+                <ul>
+                    <li><a href="https://wa.me/265993550860" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
+                    <li><a href="mailto:juyassini@gmail.com">Email Support</a></li>
+                    <li><a href="index.html">Help Center</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Follow Us</h4>
+                <div class="footer-socials">
+                    <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">Facebook</a>
+                    <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a>
+                    <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                    <a href="https://x.com/" target="_blank" rel="noopener noreferrer">Twitter</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Dream Consults &bullet; Lilongwe, Malawi &bullet; Tel: +265 (0) 993 550 860</p>
+            <div class="footer-legal">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Sitemap</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <div id="missionModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('missionModal')">&times;</span>
+            <h2 style="color: #2e7d32; margin-bottom: 1rem;">🎯 Our Mission</h2>
+            <p style="line-height: 1.8; color: #333; font-size: 1rem;">
+                <strong>To empower Malawian SMEs and agribusinesses with evidence-based advisory services that optimize operations, unlock market opportunities, and drive sustainable profitable growth through practical, locally-adapted solutions.</strong>
+            </p>
+            <h3 style="color: #2e7d32; margin-top: 1.5rem; font-size: 1.1rem;">How We Live Our Mission:</h3>
+            <ul style="padding-left: 1.5rem; line-height: 1.8; color: #333;">
+                <li><strong>Evidence-Based:</strong> Every recommendation stems from rigorous data analysis and market research</li>
+                <li><strong>Locally-Adapted:</strong> We understand Malawi's unique context and design solutions accordingly</li>
+                <li><strong>Practical:</strong> We focus on implementable solutions, not theoretical concepts</li>
+                <li><strong>Sustainable:</strong> We help businesses grow in ways that last, not quick fixes</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="visionModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('visionModal')">&times;</span>
+            <h2 style="color: #2e7d32; margin-bottom: 1rem;">✨ Our Vision</h2>
+            <p style="line-height: 1.8; color: #333; font-size: 1rem;">
+                <strong>A Malawi where every business owner has access to affordable, high-quality advisory services that enable them to compete confidently, scale sustainably, and contribute meaningfully to economic development.</strong>
+            </p>
+            <h3 style="color: #2e7d32; margin-top: 1.5rem; font-size: 1.1rem;">What This World Looks Like:</h3>
+            <ul style="padding-left: 1.5rem; line-height: 1.8; color: #333;">
+                <li><strong>Accessibility:</strong> Affordable services reaching businesses across the country</li>
+                <li><strong>Empowerment:</strong> Business owners making informed decisions with confidence</li>
+                <li><strong>Scalability:</strong> SMEs growing sustainably and creating quality employment</li>
+                <li><strong>Economic Impact:</strong> Collective contribution to Malawi's economic development</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Modal functions
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Keyboard close (ESC)
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                document.querySelectorAll('.modal.active').forEach(modal => {
+                    modal.classList.remove('active');
+                });
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Animate cards on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.mission-vision-cards > div, .value-card');
+            cards.forEach((card, index) => {
+                card.classList.add('animate-in');
+                card.style.animationDelay = (index * 0.1) + 's';
+            });
+
+            // Scroll reveal animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const revealTexts = entry.target.querySelectorAll('.reveal-text');
+                        revealTexts.forEach((text, i) => {
+                            setTimeout(() => {
+                                text.classList.add('visible');
+                            }, i * 100);
+                        });
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('section').forEach(section => {
+                observer.observe(section);
+            });
+        });
+
+        // Add hover interactive effects
+        document.querySelectorAll('.value-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-12px) scale(1.05)';
+            });
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
